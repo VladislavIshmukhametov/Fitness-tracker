@@ -1,4 +1,3 @@
-# Импортируйте необходимые модули
 import datetime as dt
 
 
@@ -14,9 +13,6 @@ storage_data = {}  # Словарь для хранения полученных
 
 def check_correct_data(data):
     """Проверка корректности полученного пакета."""
-    # Если длина пакета отлична от 2
-    # или один из элементов пакета имеет пустое значение -
-    # функция вернет False, иначе - True.
     if len(data) != 2 or data[0] is None:
         return False
     return True
@@ -24,11 +20,6 @@ def check_correct_data(data):
 
 def check_correct_time(time):
     """Проверка корректности параметра времени."""
-    # Если словарь для хранения не пустой
-    # и значение времени, полученное в аргументе,
-    # меньше или равно самому большому значению ключа в словаре,
-    # функция вернет False.
-    # Иначе - True
     if storage_data and time <= max(storage_data.keys()):
         return False
     return True
@@ -36,30 +27,19 @@ def check_correct_time(time):
 
 def get_step_day(steps):
     """Получить количество пройденных шагов за этот день."""
-    # Посчитайте все шаги, записанные в словарь storage_data,
-    # прибавьте к ним значение из последнего пакета
-    # и верните эту сумму.
     steps_per_day = [step for step in storage_data.values()]
     return sum(steps_per_day) + steps
 
 
 def get_distance(steps):
     """Получить дистанцию пройденного пути в км."""
-    # Посчитайте дистанцию в километрах,
-    # исходя из количества шагов и длины шага.
-    transfer_coef = 1000  # Коэффициент перевода значения расстояния из метров в километры
+    transfer_coef = 1000
     dist = STEP_M * steps / transfer_coef
     return dist
 
 
 def get_spent_calories(dist, current_time):
     """Получить значения потраченных калорий."""
-    # В уроке «Последовательности» вы написали формулу расчета калорий.
-    # Перенесите её сюда и верните результат расчётов.
-    # Для расчётов вам потребуется значение времени;
-    # получите его из объекта current_time;
-    # переведите часы и минуты в часы, в значение типа float.
-    # current_time = dt.datetime.time()
     hour = current_time.hour + current_time.minute / 60
     mean_speed = dist / hour
     minutes = current_time.hour * 60 + current_time.minute
@@ -69,10 +49,6 @@ def get_spent_calories(dist, current_time):
 
 def get_achievement(dist):
     """Получить поздравления за пройденную дистанцию."""
-    # В уроке «Строки» вы описали логику
-    # вывода сообщений о достижении в зависимости
-    # от пройденной дистанции.
-    # Перенесите этот код сюда и замените print() на return.
     if dist >= 6.5:
         return 'Отличный результат! Цель достигнута.'
     elif dist >= 3.9:
@@ -106,14 +82,10 @@ def accept_package(data):
     if not check_correct_time(pack_time):  # Если функция проверки значения времени вернет False
         return 'Некорректное значение времени'
 
-    day_steps = get_step_day(data[1])  # Запишите результат подсчёта пройденных шагов.
-    dist = get_distance(day_steps)  # Запишите результат расчёта пройденной дистанции.
-    spent_calories = get_spent_calories(dist, pack_time)  # Запишите результат расчёта сожжённых калорий.
-    achievement = get_achievement(dist)  # Запишите выбранное мотивирующее сообщение.
-    # Вызовите функцию show_message().
-    # Добавьте новый элемент в словарь storage_data.
-    # Верните словарь storage_data.
-    show_message(pack_time, day_steps, dist, spent_calories, achievement)
+    day_steps = get_step_day(data[1])  # Результат подсчёта пройденных шагов.
+    dist = get_distance(day_steps)  # Результат расчёта пройденной дистанции.
+    spent_calories = get_spent_calories(dist, pack_time)  # Результат расчёта сожжённых калорий.
+    achievement = get_achievement(dist)  # Выбранное мотивирующее сообщение.
     storage_data[pack_time] = data[1]
     return print(show_message(pack_time, day_steps, dist, spent_calories, achievement))
 
