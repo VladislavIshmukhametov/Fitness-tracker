@@ -1,7 +1,7 @@
 import datetime as dt
 
 
-FORMAT = '%H:%M:%S'  # Запишите формат полученного времени.
+FORMAT = '%H:%M:%S'  # Формат полученного времени.
 WEIGHT = 75  # Вес.
 HEIGHT = 175  # Рост.
 K_1 = 0.035  # Коэффициент для подсчета калорий.
@@ -59,7 +59,6 @@ def get_achievement(dist):
         return 'Лежать тоже полезно. Главное — участие, а не победа!'
 
 
-# Место для функции show_message.
 def show_message(pack_time, day_steps, dist, spent_calories, achievement):
     return f'''
 Время: {pack_time.time()}.
@@ -76,8 +75,7 @@ def accept_package(data):
     if not check_correct_data(data):  # Если функция проверки пакета вернет False
         return 'Некорректный пакет'
 
-    # Распакуйте полученные данные.
-    pack_time = dt.datetime.strptime(data[0], FORMAT)  # Преобразуйте строку с временем в объект типа time.
+    pack_time = dt.datetime.strptime(data[0], FORMAT)  # Строка с временем в объект типа time.
 
     if not check_correct_time(pack_time):  # Если функция проверки значения времени вернет False
         return 'Некорректное значение времени'
@@ -90,7 +88,6 @@ def accept_package(data):
     return print(show_message(pack_time, day_steps, dist, spent_calories, achievement))
 
 
-# Данные для самопроверки. Не удаляйте их.
 package_0 = ('2:00:01', 505)
 package_1 = (None, 3211)
 package_2 = ('9:36:02', 15000)
