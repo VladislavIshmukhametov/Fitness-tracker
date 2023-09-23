@@ -1,3 +1,2 @@
 # fitness_tracker
 
-# lesson
